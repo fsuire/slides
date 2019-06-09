@@ -1,0 +1,21 @@
+<html>
+  <section>
+    <h1><span class="small block">Les middlewares comme</span>fournisseurs de services</h1>
+    <p>Nous pouvons un créer un middleware fournissant un service <code>game</code> au routeur <code>game</code>.</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/25cbbc2970c57faba4d7e2cf042ca4695ce0d786">middleware as service</a>.</p>
+  </section>
+
+  <section>
+    <h1>Un deuxième service</h1>
+    <p>Nous pouvons un créer un middleware fournissant un service <code>game-history</code> au routeur <code>game</code>, permettant d'enregistrer le résultat d'une partie dans un fichier à la fin de celle-ci. Cet historique pourra être affiché sur la page de création de partie.</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/d651cfdf9a2235fce401215820d9972081626650">game-history service</a>.</p>
+  </section>
+
+  <section>
+    <h1>Injection de dépendances</h1>
+    <p class="advice"><span>Dans une appli un peu large, la gestion et l'instanciation des dépendances devient problématique. L'utilisation d'un DI est recommandée.</span></p>
+    <p><a href="https://github.com/fsuire/pdi-js#readme">pdi-js</a> est un DI sans dépendances, léger et très configurable</p>
+    <p>Créons les services <code>game</code> et <code>game-history</code> avec pdi-js ; ainsi qu'un middleware permettant de passer ces deux services au routeur <code>game</code>.</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/e769e779e7059110da59db8e056b31490581f34a">dependecy injection</a>.</p>
+  </section>
+</html>

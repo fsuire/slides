@@ -1,0 +1,35 @@
+<html>
+  <section>
+    <h1>Module alias</h1>
+    <p>Il peut devenir très ennuyant de devoir jongler avec des chemins de ce type :</p>
+    <pre><code class="javascript">const monModule = require('../../../../../../../../mon-module')</code></pre>
+    <p class="advice"><span>Le package <a href="https://www.npmjs.com/package/link-module-alias">link-module-alias</a> permet de se passer avantageusement de ce problème.</span></p>
+    <p>Utilisons ce package afinde créer des alias ciblant le dossier <code>src</code></p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/f852970d0e5153abd4fd4e372521977503548777">module alias</a>.</p>
+    <p class="advice"><span>Bien qu'un peu plus ancien, le package <a href="https://github.com/ilearnio/module-alias">module-alias</a> peut aussi valoir le coup d'oeil.</span></p>
+    <p class="advice"><span>Les transpilateurs, tel que Babel ou TypeScript permettent également ce genre de choses.</span></p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Un début de</span>Domain Driven Development</h1>
+    <p>Rangeons tous les middlewares dans un dossier <code>src/_middlewares</code></p>
+    <p>Plutôt que d'avoir le dossier <code>src/routes/game</code>, essayons d'avoir le dossier <code>src/game</code> (qui contiendra un dossier <code>routes</code>)</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/48db9c50ab90d99e3b26f4b4fc6174b8b02cc58e">components like architecture</a>.</p>
+  </section>
+
+  <section>
+    <h1>Input filtering</h1>
+    <p>Utilisons <a href="https://github.com/hapijs/joi">Joi</a> pour filtrer les entrées de la route <code>GET /game/play</code>.</p>
+    <p>Faisons le sous la forme d'un middleware réutilisable.</p>
+    <p>Plutôt que d'avoir le dossier <code>src/routes/game</code>, essayons d'avoir le dossier <code>src/game</code> (qui contiendra un dossier <code>routes</code>)</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/a706e7baddc49b9e29b1c34ec8ab8b67eb36f6c1">input filtering</a>.</p>
+  </section>
+
+  <section>
+    <h1>Configuration d'environnement</h1>
+    <p>Utilisons le package <a href="https://github.com/motdotla/dotenv#readme">dotenv</a> afin de fournir une variable d'environnement contenant le chemin vers le fichier stockant l'historique de nos parties de morpion.</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/f150d56d861fe81b867b158d52f36479413039f8">environment config</a>.</p>
+    <p class="warning"><span>Le fichier <code>.env</code> ne devrait pas être commité. Par contre, la présence d'un modèle nommé <code>.env.dist</code> est plutôt de bon aloi.</span></p>
+    <p class="advice"><span>En production, <a href="http://pm2.keymetrics.io/">PM2</a> remplace avantageusement à la fois dotenv et nodemon. Cet outil est trop vaste pour rentrer dans le cadre de cette formation, mais il serait de bon ton d'y jeter un oeil.</span></p>
+  </section>
+</html>

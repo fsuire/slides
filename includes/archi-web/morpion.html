@@ -1,0 +1,35 @@
+<html>
+  <section>
+    <h1>Morpion</h1>
+    <p>Le package <a href="https://github.com/fsuire/morpion">morpion</a> peut être utilisé pour faire une appli web simple avec ce que nous avons déjà.</p>
+    <p>Profitons-en également pour ajouter un <a href="https://expressjs.com/en/guide/error-handling.html">gestionnaire d'erreurs express</a>.</p>
+    <p>Voir une correction possible dans le commit <a href="https://github.com/fsuire/ex/commit/fbbe4f6c0ba8f943628497b3d7d938ab24b466b5">play morpion</a>.</p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Tests fonctionnels</span>par les routes</h1>
+    <p>Un bon moyen de vérifier à peu de frais que les fonctionnalités de notre appli ne sont pas cassées, c'est de directement tester les routes en utilisant <a href="https://jestjs.io/en/">Jest</a> et <a href="https://github.com/visionmedia/supertest#readme">supertest</a>. Ce dernier permet d'émuler une requête HTTP sans avoir à lancer un vrai serveur.</p>
+    <p>Créons un test pour la route <code>/</code></p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/c804523a129677d6492f1371addb3984d29200ac">test route</a>.</p>
+  </section>
+
+  <section>
+    <h1>Tests unitaires</h1>
+    <p>Bien que ne testant pas directement les fonctionnalités d'une application, le test unitaire est quand même un grand allié du développeur ; et <a href="https://jestjs.io/en/">Jest</a> un outil parfait pour ça.</p>
+    <p>Testons le fichier <code>error-handler.js</code></p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/0d9fec8237f94e52bc48e3b083d8a3c2e358dad1">unit tests</a>.</p>
+  </section>
+
+  <section>
+    <h1>Les middlewares<span class="small block">d'express</span></h1>
+    <p>Devoir stocker ses templates dans un répertoire unique, ce n'est pas forcément pratique. Un <a href="https://expressjs.com/en/guide/writing-middleware.html">middleware express</a> utilisant la fonction <code>renderFile</code> de <a href="https://github.com/twigjs/twig.js">Twig</a> pourrait être utile.</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/f231fc00237e84ea8434c483d532e19b7c48f137">middleware custom-renderer</a>.</p>
+  </section>
+
+  <section>
+    <h1>Les routers<span class="small block">d'express</span></h1>
+    <p>Les <a href="https://expressjs.com/en/guide/routing.html">routeurs d'express</a> permettent d'organiser efficacements les routes.</p>
+    <p>Rangeons donc nos routes existantes dans un routeur.</p>
+    <p>Voir le commit <a href="https://github.com/fsuire/ex/commit/027f2082d1682e88fe5245113ad22739c32260f5">express router</a>.</p>
+  </section>
+</html>
