@@ -1,0 +1,55 @@
+<html>
+  <section>
+    <!-- <h1><span class="small block">console.log</span>et<span class="small block">require</span></h1> -->
+    <h1>console.log<span class="small block">et</span>require</h1>
+  </section>
+
+  <section>
+    <h1>console.log</h1>
+    <p>En Node.js, la console (comme <code>console.log</code>, par exemple) ne s'utilise que lors du développement.</p>
+    <p>Si l'on souhaite écrire quelque chose dans le terminal qui ne soit pas du debug, il est préférable d'utiliser <code>process.stderr.write</code> pour signaler des erreurs, et <code>process.stdout.write</code> pour le reste.</p>
+    <p>Transformons donc <code>src/index.html</code> :</p>
+<pre><code class="javascript" data-line-numbers>"use strict"
+
+process.stdout.write('Hello world!');
+</code></pre>
+  <p>À l'exécution survient néanmoins un problème : l'invite de commande est placée n'importe où, ou alors un caractère bizarre est apparu. C'est parce que le caratère de fin de ligne n'est pas automatiquement ajouté par <code>process.stdout.write</code>.</p>
+  </section>
+
+  <section>
+    <h1>Require<span class="small block">et EOL</span></h1>
+    <p class="advice">Le caractère EOL est un caractère qui symbolise la fin de la ligne (EOL => End Of Line). Les caractères suivants EOL apparaîtront au début de la prochaine ligne.</p>
+    <p>Le caractère EOL se trouve dans le paquet <code>os</code> de la librairie standard de Node.js. Pour pouvoir utiliser ce paquet depuis notre fichier <code>src/index.js</code>, il nous faut l'importer. Plusieurs solutions :</p>
+<pre><code class="javascript" data-line-numbers>"use strict"
+
+// À l'ancienne
+const os = require('os');
+const EOL = os.EOL;
+
+// À l'ancienne en une seule ligne
+const EOL = require('os').EOL;
+
+// En utilisant la destructuration
+const { EOL } = require('os');
+
+// Ajouter EOL en fin de ligne, à l'ancienne
+process.stdout.write('Hello world!' + EOL);
+
+// En utilisant une template string
+process.stdout.write(`Hello world!${EOL}`);
+</code></pre>
+  </section>
+
+  <section>
+    <h1>console et process</h1>
+    <p class="advice"><span><code>console</code> et <code>process</code> sont des objets globaux de Node.js. Ils n'ont pas besoin d'être importés et sont disponibles n'importe où.</span></p>
+  </section>
+
+  <section>
+    <h1>require<span class="small block">vs</span>import</h1>
+    <p>Pour importer des modules, Node.js se base sur <b>CommonJS</b>, et ça se traduit par l'utilisation du mot-clef <code>require</code></p>
+    <p>Côté navigateur, on se base sur <b>AMD</b> (Asynchronous Module Definition). De nos jours, l'usage de transpilateurs (comme <a href="https://babeljs.io/">Babel</a> ou <a href="https://www.typescriptlang.org/">TypeScript</a>) permet l'usage de <b>JSM</b> (JavaScript Module) en utilisant le mot-clef <code>import</code>.</p>
+    <p>Il est également possible d'utiliser la syntaxe <code>import</code> en Node.js, mais en utilisant un transpilateur ou en lançant Node.js avec des tags particuliers</p>
+    <p>Il est possible que, dans l'avenir, Node.js adopte <b>JSM</b> plutôt que <b>CommonJS</b>.</p>
+  </section>
+</html>

@@ -1,0 +1,106 @@
+<html>
+  <section>
+      <h1><span class="small block">Petit mémo sur</span>les variables</h1>
+  </section>
+
+  <section>
+    <h1>Comment déclarer une variable</h1>
+    <pre><code data-line-numbers>"use strict";
+
+let maVariable = 1;
+console.log(maVariable); // 1
+maVariable = 2;
+console.log(maVariable); // 2
+
+const maConstante = 1;
+console.log(maConstante); // 1
+maConstante = 2; // TypeError: Assignment to constant variable.
+</code></pre>
+    <p class="advice"><span>Traditionnellement, le bon javascripteux n'utilise <code>let</code> que si le contenu d'une variable <b>doit</b> changer. Dans la mesure du possible, le bon javascripteux préfère toujours utiliser <code>const</code>.</span></p>
+    <p class="warning"><span>Le mot-clef <code>var</code> existe certes toujours, mais uniquement pour des raisons de rétro-compatibilité. Le bon javascripteux ne l'utilise <b>jamais</b>.</span></p>
+  </section>
+
+  <section>
+    <h1>Portée des variables</h1>
+    <pre><code data-line-numbers>"use strict";
+
+let uneVariable = 1;
+
+function incrementVariable() {
+  uneVariable++;
+  const uneAutreVariable = 'salut';
+}
+
+console.log(uneVariable); // 1
+incrementVariable();
+console.log(uneVariable); // 2
+
+console.log(uneAutreVariable); // ReferenceError: uneAutreVariable is not defined
+</code></pre>
+    <p class="advice"><span>Ce qu'il y a entre deux accolades s'appelle un <b>scope</b>. Un scope enfant peut accéder aux variables d'un scope parent, mais pas le contraire.</span></p>
+  </section>
+
+  <section>
+    <h1>Les types primitifs</h1>
+    <pre><code data-line-numbers>"use strict";
+
+const b = true;
+console.log(typeof b);  // boolean
+
+const n = 10;
+console.log(typeof n); // number
+const f = 10.5;
+console.log(typeof f); // number
+
+const s = 'salut';
+console.log(typeof s); // string
+
+const u = undefined;
+console.log(typeof u); // undefined
+</code></pre>
+<p class="advice">Un type primitif est toujours passé par copie à une fonction.</p>
+    <pre><code data-line-numbers>"use strict";
+
+function maFonction(unArgument) {
+  unArgument += 10;
+  console.log(unArgument)
+}
+const maVariable = 10;
+
+maFonction(maVariable); // 20
+console.log(maVariable); // 10
+</code></pre>
+  </section>
+
+  <section>
+    <h1><span class="small block">Tableaux et tableaux indexés (hash) :</span>les objets</h1>
+    <pre><code data-line-numbers>"use strict";
+
+const a = [1, 2];
+console.log(typeof a); // object
+console.log(Array.isArray(a)); // true
+console.log(a[0]); // 1
+
+const ai = { a: 1, b: 2};
+console.log(typeof ai); // object
+console.log(Array.isArray(ai)); // false
+console.log(ai.a); // 1
+console.log(ai[a]); // 1
+
+const n = null;
+console.log(typeof n); // object
+</code></pre>
+    <p class="advice">Un objet est toujours passé par référence à une fonction.</p>
+    <pre><code data-line-numbers>"use strict";
+
+function maFonction(unArgument) {
+  unArgument[0] += 10;
+  console.log(unArgument)
+}
+const maVariable = [10];
+
+maFonction(maVariable); // [ 20 ]
+console.log(maVariable); // [ 20 ]
+</code></pre>
+  </section>
+</html>

@@ -1,0 +1,31 @@
+<html>
+  <section>
+    <h1>Truthy et falsy</h1>
+    <pre><code data-line-numbers>"use strict";
+
+function isTruthyOrFalsy(value) {
+  if (value) {
+    console.log(`"${value}" est truthy`);
+  } else {
+    console.log(`"${value}" est falsy`);
+  }
+}
+
+isTruthyOrFalsy(1); // "1" est truthy
+isTruthyOrFalsy(-1); // "-1" est truthy
+isTruthyOrFalsy(0); // "0" est falsy
+
+isTruthyOrFalsy('string'); // "string" est truthy
+isTruthyOrFalsy(''); // "" est falsy
+
+isTruthyOrFalsy([1, 2]); // "1,2" est truthy
+isTruthyOrFalsy([]); // "" est truthy
+
+isTruthyOrFalsy({}); // "[object Object]" est truthy
+isTruthyOrFalsy({ a: 1 }); // "[object Object]" est truthy
+
+isTruthyOrFalsy(null); // "null" est falsy
+isTruthyOrFalsy(undefined); // "undefined" est falsy
+</code></pre>
+  </section>
+</html>

@@ -1,0 +1,81 @@
+<html>
+  <section>
+    <h1><span class="small block">Petit mémo sur</span>les boucles for</h1>
+  </section>
+
+  <section>
+    <h1>À l'ancienne</h1>
+    <pre><code data-line-numbers>"use strict";
+
+const unTableau = [1, 2];
+let sum = 0;
+
+for (let i = 0 ; i < unTableau.length ; i++) {
+  sum += unTableau[i];
+}
+
+console.log(sum); // 3
+</code></pre>
+    <p class="warning">Les boucles for ne fonctionnent pas avec des tableaux indexés !</p>
+    <p class="advice"><span>Ce type de boucle for permet l'utilisation de <code>break</code> et <code>continue</code>.</span></p>
+  </section>
+
+  <section>
+    <h1>for in & for of</span></h1>
+    <pre><code data-line-numbers>"use strict";
+
+const unTableau = [1, 2];
+
+let sum = 0;
+for (let i in unTableau) {
+  sum += unTableau[i];
+}
+console.log(sum); // 3
+
+sum = 0;
+for (let i of unTableau) {
+  sum += i;
+}
+console.log(sum); // 3
+</code></pre>
+    <p class="warning">Les boucles for ne fonctionnent pas avec des tableaux indexés !</p>
+    <p class="advice"><span>Ce type de boucle for permet l'utilisation de <code>break</code> et <code>continue</code>.</span></p>
+  </section>
+
+  <section>
+    <h1>.forEach</h1>
+    <pre><code data-line-numbers>"use strict";
+
+const unTableau = [1, 2];
+
+let sum = 0;
+unTableau.forEach((value, index) => sum += value);
+
+console.log(sum); // 3
+</code></pre>
+    <p class="warning">Les boucles for ne fonctionnent pas avec des tableaux indexés !</p>
+    <p class="advice"><span>Quand il le peut, le javascripteux moderne préfère utiliser <code>.forEach</code> (et ses copines <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/map"><code>.map</code></a> et <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/reduce"><code>.reduce</code></a>).</span></p>
+    <p class="warning"><span>Ce type de boucle <b> ne permet pas</b> l'utilisation de <code>break</code> et <code>continue</code>.</span></p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Comment itérer sur</span>un tableau indexé</h1>
+    <pre><code data-line-numbers>"use strict";
+
+const unTableauIndexé = { a: 1, b: 2 };
+let sum = 0;
+
+const keys = Object.keys(unTableauIndexé);
+
+for (let key of keys) {
+  sum += unTableauIndexé[key];
+}
+console.log(sum); // 3
+
+sum = 0;
+keys.forEach(key => sum += unTableauIndexé[key]);
+console.log(sum); // 3
+</code></pre>
+    <p class="advice"><span>Oui, c'est moche ; mais rien n'empêche de créer sa propre fonction d'itération ou d'en utiliser une déjà présente dans des bibliothèques comme <a href="https://lodash.com/">lodash</a>.</span></p>
+  </section>
+</html>

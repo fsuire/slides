@@ -1,0 +1,81 @@
+<html>
+    <section>
+        <h1><span class="small block">Petit mémo sur les</span>namespaces et les class</h1>
+    </section>
+
+  <section>
+    <h1>Les namespaces</h1>
+    <pre><code>module.exports = {
+  getHello() {
+    return 'hello';
+  },
+
+  getSomething() {
+    return this.getHello();
+  }
+};</code></pre>
+    <pre><code>"use strict";
+  
+const { getHello, getSomething } = require('./module-du-dessus');
+
+console.log(getHello()); // hello
+console.log(getSomething()); // TypeError: this.getHello is not a function 
+// le contexte de `getSomething` a été perdu à cause de la destructuration lors de l'import
+</code></pre>
+<pre><code>"use strict";
+
+const moduleDuDessus = require('./module-du-dessus');
+
+console.log(moduleDuDessus.getHello()); // hello
+console.log(moduleDuDessus.getSomething()); // hello
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Class</h1>
+    <pre><code>class Personne {
+  constructor(nom, prenom, dateNaissance) {
+    this.nom = nom;
+    this.prenom = prenom;
+    this.dateNaissance = dateNaissance;
+  }
+
+  get age() {
+    const currentYear = new Date().getFullYear();
+    return currentYear - this.dateNaissance;
+  }
+
+  set age(age) {
+    throw new Error('An age cannot be setted');
+  }
+}
+
+Personne.variableStatique = 'une variable statique';
+
+const bernardYves = new Personne('Trucmuche', 'Bernard-Yves', 1992);
+console.log(typeof bernardYves); // object
+console.log(bernardYves instanceof Personne); // true
+console.log(bernardYves.age); // 27
+console.log(Personne.variableStatique); // une variable statique
+
+module.exports = Personne;
+
+// Exporter "façon simili singleton"
+// module.exports = bernardYves
+</code></pre>
+    <p class="warning"><span>Pour déclarer des variables dans une classe, il faut soit passer par le constructeur, soit passer par des getter/setter (comme nous venons de faire pour <code>age</code>)</span></p>
+  </section>
+
+  <section>
+    <h1>L'héritage</h1>
+    <pre><code>class CustomError extends Error {
+  constructor(...args) {
+    super(...args);
+  }
+}
+
+const monErreur = new CustomError('message');
+console.log(monErreur instanceof Error); // true
+console.log(monErreur instanceof CustomError); // true</code></pre>
+  </section>
+</html>

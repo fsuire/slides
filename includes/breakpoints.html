@@ -1,0 +1,26 @@
+<html>
+  <section>
+    <h1>Les points d'arrêts</h1>
+    <p>Node.js permet l'utilisation de points d'arrêts. il suffit d'utiliser l'argument <code>inspect</code> lors du lancement du script.</p>
+    <pre><code class="shell">node inspect src/index.js
+nodemon inspect scr/index.js</code></pre>
+    <p>Le mot-clef <code>debugger;</code> inséré n'importe où dans le code génère un point d'arrêt.</p>
+    <p>Lorsque l'exécution s'est arrêtée sur un point, plusieurs command sont possibles :</p>
+    <ul>
+      <li><code>cont</code> ou <code>c</code> : continue l'exécution en ignorant les points d'arrêts suivants</li>
+      <li><code>next</code> ou <code>n</code> : continue l'exécution jusqu'au prochain point d'arrêt</li>
+      <li><code>step</code> ou <code>s</code> : step in</li>
+      <li><code>out</code> ou <code>o</code> : step out</li>
+    </ul>
+    <p>Voir la <a href="https://nodejs.org/api/debugger.html">documentation du debugger Node.js</a></p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Les points d'arrêts</span>dans l'IDE</h1>
+    <p>Tous les IDE modernes proposent une interface plus agréable que le terminal pour travailler avec des points d'arrêts:</p>
+    <ul>
+      <li><a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging">vscode</a></li>
+      <li><a href="https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html">webstorm</a></li>
+    </ul>
+  </section>
+</html>

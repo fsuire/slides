@@ -1,0 +1,183 @@
+<html>
+  <section>
+    <h1><span class="small block">Petit mémo sur</span>les fonctions</h1>
+  </section>
+
+  <section>
+    <h1>Fonction classique</h1>
+    <pre><code data-line-numbers>"use strict";
+
+function addition(a, b) {
+  return a + b;
+}
+
+const myAddition = addition(1, 1);
+
+console.log(myAddition); // 2
+    </code></pre>
+  </section>
+
+  <section>
+    <h1>Fonction anonyme</h1>
+    <pre><code data-line-numbers>"use strict";
+
+let addition = function(a, b) {
+  return a + b;
+}
+
+const myAddition = addition(1, 1);
+
+console.log(myAddition); // 2
+
+addition = 3;
+
+const myOtherAddition = addition(1, 1);
+
+console.log(myOtherAddition); // TypeError: addition is not a function
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Arrowed function</h1>
+    <p>Une fonction anonyme peut s'écrire sous une forme raccourcie : l'<b>arrowed function</b>.</p>
+    <pre><code data-line-numbers>
+const addition = (a, b) => {
+  const result = a + b;
+  return result;
+}
+
+console.log(addition(1, 1)); // 2
+
+// quand la fonction ne contient qu'une seule instruction
+// on peut se passer des accolades et du mot-clef `return`
+const substraction = (a, b) => a - b;
+
+console.log(substraction(2, 1)); // 1
+
+// Si il n'y a qu'un seul argument, on peut
+// se passer des parenthèses pour la signature
+const substractEleven = a => a - 11;
+
+console.log(substractEleven(11)); // 0
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Arguments par défaut</h1>
+    <pre><code data-line-numbers>"use strict";
+
+function addition(a, b = 1) {
+  return a + b;
+}
+
+console.log(addition(9)); // 10
+console.log(addition(9, 9)); // 18
+</code></pre>
+  <p class="warning">Les arguments par défaut peuvent être placés n'importe où dans la signature.</p>
+<pre><code data-line-numbers>"use strict";
+
+function addition(a = 1, b) {
+  return a + b;
+}
+
+console.log(addition(9)); // NaN (Not A Number)
+</code></pre>
+    <p class="advice">Conseil: les arguments avec des valeurs par défaut devraient toujours être à la fin de la signature.</p>  
+  </section>
+
+  <section>
+    <h1>Spread operator en argument</h1>
+    <pre><code data-line-numbers>"use strict";
+
+function addition(...values) {
+  let total = 0;
+  for(let value of values) {
+      total += value;
+  }
+
+  return total;
+}
+
+console.log(addition(10, 10, 10, 10)); // 40
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Fonction de callback</h1>
+    <p class="advice">Une fonction peut prendre une autre fonction comme argument.</p>
+<pre><code data-line-numbers>"use strict";
+const {
+  grosseOperationQuiPrendDuTemps,
+  grosseOperationQuiPrendMoinsDeTemps
+} = require('dependance-fictive');
+
+const writeInfo = (operationType, duration) =>
+  process.write.stdout(`L'opération "${operationType}" a durée ${duration} secondes`);
+
+function doSomethingHuge(callback) {
+  const duration = grosseOperationQuiPrendDuTemps(); // code bloquant
+  callback('grosse opération', duration); // quand c'est débloqué, on appelle le callback
+}
+
+function doSomethingLessHuge(callback) {
+  const duration = grosseOperationQuiPrendMoinsDeTemps(); // code bloquant
+  callback('opération moins grosse', duration); // quand c'est débloqué, on appelle le callback
+}
+
+doSomethingHuge(writeInfo);
+doSomethingLessHuge(writeInfo);
+
+// la sortie affichera :
+//      L'opération "opération moins grosse" a durée xxx secondes
+//      L'opération "grosse opération" a durée yyy secondes
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Les "callbacks standards"</h1>
+    <p>Dans toute l'API de Node.js, chaque fois qu'une fonction a besoin d'un callback, sa signature adopte cette forme :</p>
+    <pre><code>function (error, data [, otherDatas])</code></pre>
+    <p>Le premier argument contient toujours soit une erreur, soit <code>null</code></p>
+    <p>De plus, le callback est toujours le dernier argument de la fonction qui en a besoin :<pre><code>fonctionQuiABesoinDUnCallback(argument1, argument2, ..., (error, data) => /* le callback en dernier */);</code></pre></p>
+    <p>C'est une convention officieuse que l'on retrouve dans de nombreuses bibliothèques Node.js.</p>
+  </section>
+  
+  <section>
+    <h1>Valeur de retour</h1>
+    <p class="advice">Une fonction retourne&nbsp;<b>toujours</b>&nbsp;quelque chose.</p>
+    <div class="columns">
+      <div>
+<pre><code data-line-numbers>"use strict";
+
+function doSomething() {
+  return 'something';
+}
+
+const something = doSomething();
+
+console.log(something); // 'something'
+</code></pre>
+      </div>
+      <div>
+<pre><code data-line-numbers>"use strict";
+
+function doSomething() {
+  return;
+}
+
+const something = doSomething();
+
+console.log(something); // undefined
+
+function doSomethingElse() {
+  //
+}
+
+const somethingElse = doSomethingElse();
+
+console.log(somethingElse); // undefined
+</code></pre>
+      </div>
+    </div>
+  </section>
+</html>

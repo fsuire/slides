@@ -1,0 +1,11 @@
+<html>
+  <section>
+    <h1>Profiling</h1>
+    <p>Pour lancer le profiler:</p>
+    <pre><code class="shell">node --prof src/index.js</code></pre>
+    <p>Cela va créer un fichier de type <code>isolate-xxxx-v8.log</code>, relativement illisible pour un humain. Heureusement une commande permet de le rendre plus digeste :</p>
+    <pre><code class="shell">node --prof-process isolate-xxx-v8.log > processed.txt</code></pre>
+    <p class="advice"><span>Ces deux fichiers peuvent être ajoutés au <code>.gitignore</code></span></p>
+    <p class="advice"><span>Très peu utilisé, <a href="https://github.com/ValYouW/njsTrace">njsTrace</a> est pourtant une alternative intéressante.</span></p>
+  </section>
+</html>

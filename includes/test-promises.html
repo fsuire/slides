@@ -1,0 +1,320 @@
+<html>
+  <section>
+    <h1>Les tests</h1>
+  </section>
+
+  <section>
+    <h1>Frameworks de test</h1>
+    <p>Traditionnellement, en Node.js, les tests sont effectués à l'aide de toute une série d'outils :</p>
+    <ul>
+      <li><a href="https://www.npmjs.com/package/mocha">Mocha</a> : le framework de test en lui-même</li>
+      <li><a href="https://www.npmjs.com/package/chai">Chai</a> : pour faire des assertions</li>
+      <li><a href="https://www.npmjs.com/package/sinon">Sinon</a> : pour faire des stubs et des mocks</li>
+      <li><a href="https://www.npmjs.com/package/proxyquire">Proxyquire</a> : pour faire des stubs et des mocks avec les dépendances</li>
+      <li><a href="https://www.npmjs.com/package/istanbul">Istanbul</a> ou <a href="https://www.npmjs.com/package/nyc">Nyc</a> (plus récent) : couverture de code</li>
+    </ul>
+    <p>Le framework <a href="https://jestjs.io/">Jest</a>, initialement développé par Facebook pour React, commence à être bien adopté par la communauté Node.js. Comme il embarque toutes les fonctionnalités nécessaires et nous facilite vraiment la vie quant à sa configuration, c'est vers lui que nous allons nous tourner.</p>
+    <p>Installons-le:</p>
+  </section>
+
+  <section>
+    <h1>Installation de jest</h1>
+    <p><a href="https://jestjs.io/">Jest</a> est un package NPM et s'installera donc presque comme d'habitude :</p>
+    <pre><code class="shell">npm install --save-dev jest</code></pre>
+    <p>En version courte :</p>
+    <pre><code class="shell">npm i -D jest</code></pre>
+    <p>Cette petite différence s'explique de la manière suivante : Jest est une dépendance qui ne sera utilisé que pendant le développement et n'a donc aucun intérêt à être installé sur un environnement de production. Cette petite différence apparaît également dans le fichier <code>package.json</code></p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Précision sur l'installation de dépendances</span>en production</h1>
+    <p>Pour (ré)installer toutes les dépendances d'un projet d'un seul coup, sans prendre en compte les "dev dependencies" :</p>
+    <pre><code class="shell">npm i --production</code></pre>
+    <p>Une autre solution consiste à avoir la variable d'environnement <code>NODE_ENV</code> valant <code>configuration</code>. Ainsi, la commande <code>npm i</code> n'installera pas les dev dependencies.</p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Où ranger les</span>fichiers de test ?</h1>
+    <p>Deux solutions sont possibles. La première, plus ancienne et plus répandue :</p>
+    <pre><code class="shell">projet
+ |- src
+ |   |- monFichier.js
+ |
+ |- tests
+     |- monFichier.test.js</code></pre>
+     <p>La seconde, plus moderne :</p>
+     <pre><code class="shell">projet
+ |- src
+     |- monFichier.js
+     |- monFichier.test.js</code></pre>
+    <p>Dans cette formation, qui se veut moderne, nous allons adopter la seconde solution.</p>
+  </section>
+
+  <section>
+    <h1>Architecture d'un fichier de test</h1>
+    <pre><code>"use strict";
+
+// On importe toutes les dépendances qui n'ont que peut d'intérêt à être mockées
+const maDependance = require('ma-dependance');
+
+// On importe toutes les dépendances qui ont intérêt à être mockées
+jest.mock('ma-dependance', () => {
+  return /* code du mock */;
+})
+
+// On importe le module à tester
+const sujetDuTest = require('sujet-du-test');
+
+describe('Le sujet du test', () => {
+  it('should do something', () => {
+    // when
+    const testResult = sujetDuTest.doSomething();
+
+    // then
+    expect(testResult).toBe('résultat attendu');
+  });
+
+  describe('le sujet du test dans un contexte particulier', () => {
+    it('should do something else', () => {
+      // given
+      sujetDuTest.etatParticulier = true;
+
+      // when
+      const testResult = sujetDuTest.doSomething();
+
+      // then
+      expect(testResult).toBe('résultat attendu');
+    });
+  });
+});</code></pre>
+    <p class="warning"><span>Bien qu'il soit possible de mettre plusieurs blocs <code>describe</code> à la racine d'un fichier, ce n'est pas considéré comme une bonne pratique.</span></p>
+  </section>
+
+  <section>
+    <h1>Variables de test</h1>
+    <pre><code>"use strict";
+
+describe('describe', () => {
+  const variable = 'une variable';
+  
+  it('should do something', () => {
+    // on peut utiliser ici `variable`
+  });
+
+  describe('describe deuxième niveau', () => {
+    const autreVariable = 'une autre variable';
+
+    it('should do something else', () => {
+      // on peut utiliser ici `variable`
+      // on peut utiliser ici `autreVariable`
+    });
+  });
+});</code></pre>
+  </section>
+
+  <section>
+    <h1>Setup & tear down</h1>
+    <pre><code>"use strict";
+
+describe('describe', () => {
+  beforeAll(() => {
+    // Cette fonction est jouée AVANT TOUS les `it` de ce scope (et de ses scopes enfants)
+  });
+  afterAll(() => {
+    // Cette fonction est jouée APRÈS TOUS les `it` de ce scope (et de ses scopes enfants)
+  });
+
+  beforeEach(() => {
+    // Cette fonction est jouée AVANT CHAQUE `it` de ce scope (et de ses scopes enfants)
+  });
+  afterEach(() => {
+    // Cette fonction est jouée APRÈS CHAQUE `it` de ce scope (et de ses scopes enfants)
+  });
+
+  it('should do something', () => {});
+});</code></pre>
+    <p class="warning"><span>Bien qu'il soit possible de mettre plusieurs blocs <code>describe</code> à la racine d'un fichier, ce n'est pas considéré comme une bonne pratique.</span></p>
+  </section>
+
+  <section>
+    <h1>Premier test</h1>
+    <p>Nous allons tester la fonction<code>display</code> qui se trouve dans le fichier <code>src/utils.js</code>. Pour ce faire, nous allons commencer par créer le fichier <code>src/utils.test.js</code></p>
+    <pre><code>"use strict";
+
+const {
+  SYMBOL_EMPTY
+} = require('morpion');
+
+const { display } = require('./utils');
+
+describe('utils', () => {
+  it('should display a board matrix', () => {
+    // given
+    const writeSpy = jest.spyOn(process.stdout, 'write')
+      .mockImplementation(() => {}); // sans cette ligne, process.stdout.write afficherait effectivement notre grille dans le terminal lors de l'exécution des tests
+    const boardMatrix = [
+      [SYMBOL_EMPTY, SYMBOL_EMPTY, SYMBOL_EMPTY],
+      [SYMBOL_EMPTY, SYMBOL_EMPTY, SYMBOL_EMPTY],
+      [SYMBOL_EMPTY, SYMBOL_EMPTY, SYMBOL_EMPTY]
+    ];
+
+    // when
+    display(boardMatrix);
+
+    // then
+    expect(writeSpy).toHaveBeenCalledTimes(16);
+  });
+});</code></pre>
+  </section>
+
+  <section>
+    <h1>Les exécutables de dépendance</h1>
+    <p>Dans le dossier <code>node_modules</code> on peut remarquer l'existence d'un dossier <code>.bin</code>.</p>
+    <p>Dans ce dossier, nous pouvons voir le fichier <code>jest</code>, qui a été créé en même temps que Jest a été installé. Il s'agit de l'exécutable de Jest, que nous allons lancer pour exécuter notre suite de test.</p>
+    <pre><code class="shell">./node_modules/.bin/jest</code></pre>
+    <p>Tous les fichiers suffixés par <code>.[test|spec].[js|jsx|ts|tsx]</code> présents dans l'arborescence.</p>
+    <p>Enfin, un rapport de test apparaît dans votre terminal.</p>
+  </section>
+
+  <section>
+    <h1>Couverture de code</h1>
+    <p>Jest peut être lancé avec l'option <code>--coverage</code></p>
+    <pre><code>./node_modules/.bin/jest --coverage</code></pre>
+    <p>À la fin de l'exécution de la suite de tests, un rapport de couverture de code apparaît dans votre terminal. De plus, un dossier <code>coverage</code> a été créer à la racine de votre arborescence.</p>
+    <p>Vous pouvez ouvrir le fichier <code>coverage/lcov-report/index.html</code> dans un navigateur afin d'accéder à un rapport de couverture de code très précis.</p>
+    <p class="advice"><span>Le dossier <code>coverage</code> n'est pas à commiter. Vous pouvez l'ajouter dans le fichier <code>.gitignore</code>.</span></p>
+  </section>
+
+  <section>
+    <h1>--watch & --watchAll</h1>
+    <pre><code class="shell">./node_modules/.bin/jest --watch
+./node_modules/.bin/jest --watchAll</code></pre>
+    <ul>
+      <li><code>--watch</code> joue la suite de test dès qu'une modification est détectée dans un fichier source, mais ne joue que les tests liés aux fichiers modifiés depuis le dernier commit.</li>
+      <li><code>--watchAll</code> fait la même chose que <code>--watch</code>, mais joue strictement tous les test.</li>
+    </ul>
+    <p>Lorsqu'une de ces deux options est utilisée, un petit menu interactif apparaît dans le terminal :</p>
+    <pre><code class="shell">Watch Usage
+ › Press a to run all tests.
+ › Press f to run only failed tests.
+ › Press p to filter by a filename regex pattern.
+ › Press t to filter by a test name regex pattern.
+ › Press q to quit watch mode.
+ › Press Enter to trigger a test run.</code></pre>
+  </section>
+
+  <section>
+    <h1><span class="small block">On ne peut tester que</span>ce qui est exporté</h1>
+    <p>Par "exporté", on entend "ce qui est fait parti d'un bloc <code>module.exports</code>".</p>
+    <p>Ainsi, nous ne pouvons actuellement pas tester les fonctions <code>loop</code> ou <code>displayErrorAndExit</code>.</p>
+    <p>Ce n'est pas une bonne pratique que d'exporter des choses depuis le fichier qui sert de point d'entrée à notre application (ici, <code>src/index.js</code>).</p>
+    <p>La bonne manière de faire serait de ranger la fonction <code>displayErrorAndExit</code> dans le fichier <code>src/utils.js</code> et les fonctions <code>loop</code>, <code>getPlayPromise</code> et <code>startMorpion</code> dans un fichier <code>src/services/game.js</code>, puis de les importer dans <code>src/index.js</code>.</p>
+    <p class="advice"><span>Si (et seulement si) vous êtes en train de développer une bibliothèque (et pas une application), alors il est au contraire recommandé d'avoir un <code>module.exports</code> dans votre point d'entrée.</span></p>
+  </section>
+
+  <section>
+    <h1>Tests asynchrones #1</h1>
+    <p>Nous allons tester la fonction <code>loop</code>. Pour ce faire, nous déplaçons cette fonction dans un fichier <code>src/services/game.js</code> et modifions le fichier <code>src/index.js</code> pour l'y importer.</p>
+    <p>Tant que nous y sommes, nous allons aussi déplacer les fonctions <code>displayErrorAndExit</code>, <code>getPlayPromise</code> et <code>startMorpion</code> dans les fichiers idoines.</p>
+    <p>Voici à quoi doit ressembler le fichier <code>src/index.js</code> :</p>
+    <pre><code>"use strict";
+
+  const { EOL } = require('os');
+  const { promisify } = require('util');
+  
+  const figlet = promisify(require('figlet'));
+  
+  const { startMorpion } = require('./services/game');
+  const { displayErrorAndExit } = require('./utils');
+  
+  figlet('Morpion')
+      .then(data => process.stdout.write(`${data}${EOL}`))
+      .catch(displayErrorAndExit)
+      .then(startMorpion)
+      .catch(displayErrorAndExit);</code></pre>
+  </section>
+
+  <section>
+    <h1>Tests asynchrones #2</h1>
+    <p>Voici à quoi doit ressembler le fichier <code>src/services/game.js</code> :</p>
+    <pre><code>"use strict";
+
+const { prompt } = require('inquirer');
+const { Game, FIA, SYMBOL_X, SYMBOL_O } = require('morpion');
+
+const { display } = require('../utils')
+
+function loop(game, options) { /* ... */ }
+
+function getPlayPromise(game, {fia, playerFirst}) {/* ... */}
+
+function startMorpion() {/* ... */}
+
+module.exports = {
+  loop,
+  getPlayPromise,
+  startMorpion
+};</code></pre>
+  </section>
+
+  <section>
+    <h1>Tests asynchrones #3</h1>
+    <p>Problème : avec l'architecture que nous venons de mettre en place, nous ne pouvons tester la fonction <code>loop</code> sans passer par la fonction <code>getPlayPromise</code> ; or nous ne pouvons mocker cette dernière sans mocker la fonction <code>loop</code> également, puisqu'elles sont dans le même fichier.</p>
+    <p>Nous allons changer un peu notre architecture :</p>
+    <pre><code class="shell">src
+ |- services
+     |- games
+         |- getPlayPromise.js
+         |- index.js
+         |- loop.js
+         |- startMorpion.js</code></pre>
+    <p>Le fichier <code>src/index.js</code> ne change pas, bien que la ligne important notre service pointe maintenant vers un dossier plustôt qu'un fichier Javascript. En réalité, cette ligne importera maintenant le fichier <code>src/services/game/index.js</code></p>
+    <p class="advice">En réalité, Jest nous permet de faire cela, mais au prix d'une manipulation fastidieuse et compliquée. Lorsque nous parlertons des namespaces et les classes, nous découvrirons une autre manière d'organiser ces fonctions en un seul fichier sans que cela ne pose problème pour les test.</p>
+  </section>
+
+  <section>
+    <h1>Tests asynchrones #4</h1>
+    <p>Voici à quoi ressemble le fichier <code>src/services/game/index.js</code> :</p>
+    <pre><code>"use strict";
+
+const loop = require('./loop');
+const getPlayPromise = require('./getPlayPromise');
+const startMorpion = require('./startMorpion');
+
+module.exports = {
+  loop,
+  getPlayPromise,
+  startMorpion
+};</code></pre>
+  </section>
+
+  <section>
+    <h1>Tests asynchrones #5</h1>
+    <p>Voici à quoi ressemble le fichier <code>src/services/game/loop.js</code> :</p>
+    <pre><code>"use strict";
+
+const { EOL } = require('os');
+
+const getPlayPromise = require('./getPlayPromise');
+const { display } = require('../../utils');
+
+function loop(game, options) {
+  return getPlayPromise(game, options)
+    .then(() => {
+      if (!game.isOver) {
+        return loop(game, options);
+      }
+
+      display(game.board);
+      process.stdout.write(`result: ${game.result}${EOL}`);
+    });
+}
+
+module.exports = { loop };</code></pre>
+  </section>
+
+  <section>
+    <h1>Tests asynchrones #6</h1>
+    <p>Regardez, sur le commit taggé <b>test-promise</b>, le contenu du fichier <code>src/services/game/loop.test.js</code>.</p>
+  </section>
+</html>

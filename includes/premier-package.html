@@ -1,0 +1,65 @@
+<html>
+  <section>
+    <h1><span class="small block">Installer un</span>package</h1>
+  </section>
+
+  <section>
+    <h1>Figlet</h1>
+    <p>Nous allons installer <a href="https://www.npmjs.com/package/figlet"><b>figlet</b></a>, une dépendance qui permet d'écrire en gros dans le terminal <pre><code class="shell"> _   _      _ _                            _     _ _ 
+| | | | ___| | | ___   __      _____  _ __| | __| | |
+| |_| |/ _ \ | |/ _ \  \ \ /\ / / _ \| '__| |/ _` | |
+|  _  |  __/ | | (_) |  \ V  V / (_) | |  | | (_| |_|
+|_| |_|\___|_|_|\___/    \_/\_/ \___/|_|  |_|\__,_(_)</code></pre></p>
+      <p>Pour ce faire, tapons la commande suivante :
+        <pre><code class="shell">npm install figlet
+
+# la même chose en plus court
+npm i figlet
+</code></pre>
+      </p>
+      <p>La nouvelle dépendance a été téléchargée dans le dossier <code>node_modules</code>, et les fichiers <code>package.json</code> et <code>package-lock.json</code> ont été mis à jour.</p>
+  </section>
+
+  <section>
+    <h1>package.json</h1>
+    <p>Une nouvelle section a été automatiquement ajoutée au fichier <code>package.json</code></p>
+<pre><code class="json">{
+  "dependencies": {
+    "figlet": "^1.2.3"
+  }
+}
+</code></pre>
+    <p>Le caractère <b>^</b> signifie qu'au moment ou nous installons ce package, si il n'y a pas déjà une version précise renseignée dans <code>package-lock.json</code>, nous téléchargerons la version <i>mineure</i> la plus récente de ce package (entre 1.2.3 et 2.0.0). Et c'est cette version précisément qui sera inscrite dans le fichier de verrouillage.</p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Bien cibler ses</span> dépendances</h1>
+    <table>
+      <tr>
+        <td><code>"figlet": "~1.2.3"</code></td>
+        <td>➔ Toutes les versions entre 1.2.3 et 1.3.0 (non incluse)</td>
+      </tr>
+      <tr>
+        <td><code>"figlet": "^1.2.3"</code></td>
+        <td>➔ Toutes les versions entre 1.2.3 et 2.0.0 (non incluse)</td>
+      </tr>
+      <tr>
+        <td><code>"figlet": "&gt;=1.2.3 &lt;3.1.4"</code></td>
+        <td>➔ Toutes les versions entre 1.2.3 et 3.1.4 (non incluse)</td>
+      </tr>
+    </table>
+    <p class="advice"><span>Le site de <a href="https://yarnpkg.com/en/docs/dependency-versions#toc-semantic-versioning">Yarn</a> propose une excellente explication sur ce qu'il est possible de faire avec ces numéros de versions.</span></p>
+  </section>
+
+  <section>
+    <h1><span class="small block">À quoi sert le fichier</span>package-lock.json</h1>
+    <p>En exécutant la commande <code>npm install</code> (ou <code>npm i</code>), toutes les dépendances sont installées/ré-installées en utilisant les versions précisées dans <code>package-lock.json</code> ou en résolvant le numéro de version renseigné dans <code>package.json</code>.</p>
+    <p class="warning"><span>Si toute l'équipe ne dispose pas de la même version de NPM ou de Yarn, le fichier <code>package-lock.json</code> ne sera pas écrit de la même manière. Cela peut finir par empêcher d'utiliser la commande <code>npm i</code>.</span></p>
+  </section>
+
+  <section>
+    <h1><span class="small block">Ce qu'il faut</span>commiter</h1>
+    <p>Les fichiers <code>package.json</code> et <code>package-lock.json</code>, afin d'être sûr que tout le monde ait les mêmes dépendances d'installées à partir d'un simple <code>npm i</code></p>
+    <p>Le dossier <code>node_modules</code> n'a aucun intérêt à être commité ; il doit être ajouté dans le <code>.gitignore</code></p>
+  </section>
+</html>

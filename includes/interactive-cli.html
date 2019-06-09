@@ -1,0 +1,91 @@
+<html>
+  <section>
+    <h1>CLI interactive</h1>
+  </section>
+  
+  <section>
+    <h1>Inquirer</h1>
+    <p><a href="https://github.com/SBoudrias/Inquirer.js#readme">Inquirer</a> est une bibliothèque Node.js permettant simplement de poser des questions à l'utilisateur (et d'en traiter les réponses) dans une application en ligne de commande.</p>
+    <p>Il existe de nombreuses bibliothèques concurrentes (<a href="https://www.npmjs.com/package/yargs">yargs</a> ou <a href="https://www.npmjs.com/package/commander">commander</a>, par exemple), mais <a href="https://github.com/SBoudrias/Inquirer.js#readme">Inquirer</a> à le mérite d'être simple et de tout traiter sous forme de promises par défaut, de manière à non-bloquant.</p>
+    <pre><code>"use strict";
+const inquirer = require('inquirer');
+
+inquirer.prompt(/* poser une question */)
+  .then(response => {
+    // traiter la réponse
+
+    return inquirer.prompt(/* une autre question */);
+  })
+  .then(response => {
+    // traiter l'autre réponse
+  })
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Installer Inquirer</h1>
+    <pre><code class="shell">npm i inquirer</code></pre>
+    <p class="warning"><span>Maintenant que Inquirer est installé, regardez le contenu du dossier <code>node_modules</code>. Un grand nombre de dossiers est apparu ; et au milieu d'eux se trouve celui concernant Inquirer. Tous les autres dossiers concernent les dépendances d'Inquirer.<br>Cette inondation de dépendances est fréquente dans le monde JavaScript, et en rend la gestion difficile.</span></p>
+  </section>
+
+  <section>
+    <h1>Machine contre machine</h1>
+    <p>Nous allons modifier notre programme de manière à ce que l'ordinateur joue contre lui même (en mode aléatoire). Il marquera une pause à chaque qu'il aura joué, et il faudra une action de l'utilisateur pour que la machine joue le coup suivant.</p>
+    <p>Première étape : modifier le code de la fonction <code>startMorpion</code> pour que la machine fasse une partie entière contre elle-même en mode aléatoire.</p>
+    <pre><code>// ...
+
+const { Game, FIA } = require('morpion');
+
+// ...
+
+function startMorpion() {
+  const game = new Game();
+
+  do {
+      game.play(FIA.playRandomly);
+      display(game.board);
+  } while (!game.isOver);
+
+  process.stdout.write(`result: ${game.result}${EOL}`);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h1><span class="small block">Fonction récursive</span>avec Inquirer</h1>
+    <pre><code>// ...
+const { prompt } = require('inquirer');
+// ...
+function loop(game) {
+  game.play(FIA.playRandomly);
+  display(game.board);
+
+  if (game.isOver) {
+      process.stdout.write(`result: ${game.result}${EOL}`);
+      return;
+  }
+
+  prompt([{
+      type: 'confirm',
+      name: 'continue',
+      message: 'Continue?',
+      default: true
+  }])
+      .then(answers => {
+          if (answers.continue) {
+              loop(game);
+          } else {
+              process.stdout.write(`Bye bye!${EOL}`);
+          }
+      })
+      .catch(console.error)
+  ;
+}
+
+function startMorpion() {
+  const game = new Game();
+  loop(game);
+}
+    </code></pre>
+  </section>
+</html>

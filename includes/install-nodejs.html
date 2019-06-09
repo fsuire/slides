@@ -1,0 +1,68 @@
+<html>
+    <section>
+        <h1><span class="small block">Installer</span>Node.js</h1>
+    </section>
+
+    <section>
+        <h1><span class="small block">Les gestionnaires</span>de version</h1>
+        <p>
+            Pour passer rapidement et proprement d'une version à l'autre de Node.js, il est plus que conseillé d'utiliser un gestionnaire de version :
+            <ul>
+                <li><a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> pour windows</li>
+                <li><a href="https://github.com/nvm-sh/nvm">nvm</a> pour tout le reste</li>
+            </ul>
+        </p>
+        <p class="warning">Node.js est livré avec NPM, son gestionnaire de paquets par défaut. Il est important que tout les membres d'une équipe utilisent la même version de Node.js et de NPM afin d'éviter de sérieux conflits de version de dépendances.</p>
+        <p class="warning">Peut importe l'OS, Node.js est difficile à désinstaller proprement. Afin de désinstaller une version qui n'aurait pas été installée par un gestionnaire de version, veuillez vous référer aux documentations correspondantes aux versions de Node.js et de votre OS.</p>
+    </section>
+
+    <section>
+        <h1><span class="small block">À propos des versions de</span>Node.js</h1>
+        <p>Il existe deux types de versions : les standards et les LTS (Long Term Support)</p>
+        <p>La version la plus récente est la 12.3.1 (le 29/05/2019). Il s'agit d'une version standard. C'est à dire qu'il n'y aura plus aucun support dès que la version 13 sortira.</p>
+        <p>La version LTS la plus récente est la 10.16.0 (le 29/05/2019). Elle date de 2018 et de nouvelles mises à jour de sécurité sortiront jusqu'en avril 2021.</p>
+    </section>
+
+    <section>
+        <h1><span class="small block">Installer Node.js avec</span>nvm-windows</h1>
+            <p>Un installeur existe pour nvm-windows. Il est disponible sur son <a href="https://github.com/coreybutler/nvm-windows">dépôt Github</a>. Téléchargez puis installez le.</p>
+            <p>Une fois installé, depuis la ligne de commande :
+<pre><code class="shell"># installer la version 10.16.0 sur votre système
+nvm install 10.16.0
+
+# Lister les versions installées (et donc utilisables) sur votre système
+nvm list
+
+# utiliser la version 10.16.0
+nvm use 10.16.0
+
+# afin de vérifier quelle est la version effectivement utilisée
+node -v</code></pre></p>
+            <p class="advice">
+                Ne pas oublier de prendre le temps de lire la documentation de nvm-windows !
+            </p>
+    </section>
+
+    <section>
+        <h1><span class="small block">Installer Node.js avec</span>nvm</h1>
+        <p>
+            Utiliser le script d'installation via curl ou wget
+<pre><code class="shell"># avec curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
+# avec wget
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash</code></pre>
+        </p>
+        <p>
+            Télécharger et utiliser la version 10.16.0
+<pre><code class="shell">nvm install 10.16.0
+nvm use 10.16.0
+
+# faire de la version 10.16.0 la version par défaut de votre système
+nvm alias default 10.16.0</code></pre>
+        </p>  
+        <p class="advice">
+            <span>Ne pas oublier de prendre le temps de lire la documentation de nvm, disponible sur son <a href="https://github.com/nvm-sh/nvm">dépôt Github</a> !</span>
+        </p>      
+    </section>
+</html>

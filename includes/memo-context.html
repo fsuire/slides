@@ -1,0 +1,84 @@
+<html>
+  <section>
+      <h1><span class="small block">Petit mémo sur</span>le contexte</h1>
+  </section>
+
+  <section>
+      <h1>Le contexte dans une fonction</h1>
+      <pre><code>function standardFunction() {
+  console.log(this); // show the Node.js global context
+}
+
+standardFunction();</code></pre>
+
+<pre><code>function standardFunction() {
+  this.value = 1; // merge the variable `value` in the Node.js global context
+  console.log(this); // show the Node.js global context
+}
+
+standardFunction();</code></pre>
+
+<pre><code>function standardFunction() {
+  this.values = [1, 2]; // merge the variable `value` in the instance context
+  console.log(this); // show the instance context
+
+  this.values.forEach(function(value) {
+    // Context has been lost.
+    console.log(this); // show the Node.js global context
+  });
+}
+
+const instance = new standardFunction();
+</code></pre>
+  </section>
+
+  <section>
+      <h1>Le contexte dans une arrowed fonction</h1>
+      <pre><code>const arrowedFunction = () => {
+  console.log(this); // show the local context `{}`
+}
+
+arrowedFunction();</code></pre>
+
+<pre><code>const arrowedFunction = () => {
+  this.values = [1, 2];
+  console.log(this); // show the local context `values: [ 1, 2 ]`
+}
+
+arrowedFunction();</code></pre>
+
+<pre><code>const arrowedFunction = () => {
+  this.values = [1, 2];
+  console.log(this); // show the local context `values: [ 1, 2 ]`
+
+  this.values.forEach(value => {
+    // arrowed functions use their parent scope (when there is one) as context
+    console.log(this); // show the parent context `values: [ 1, 2 ]`
+  });
+
+  this.values[0]++;
+}
+
+arrowedFunction();
+arrowedFunction(); // run with a brand new local scope. `this.values[0]++;` is not of any use.</code></pre>
+</section>
+
+  <section>
+    <h1>Changer de contexte</h1>
+    <p class="warning"><span>En JavaScript, <code>this</code> est rarement celui qu'on croit, mais peut être celui qu'on veut.</span></p>
+    <pre><code>function getAge() {
+  return this.age;
+}
+
+// sans contexte
+console.log(getAge()); // undefined
+
+// sous forme de namespace
+const michel = { age: 8, getAge };
+console.log(michel.getAge()); // 8
+
+// en forçant un contexte
+const jacquesHubert = { age: 8 };
+console.log(getAge.bind(jacquesHubert)()); // 8</code></pre>
+  </section>
+</html>

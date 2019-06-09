@@ -1,0 +1,15 @@
+<html>
+  <section>
+    <h1>Tester<span class="small block">avec async/await</span></h1>
+    <pre><code>"use strict";
+
+const testSubject = () => Promise.resolve('hello');
+
+describe('test async/await', () => {
+  it('should return "hello"', async () => {
+    const result = await testSubject();
+    expect(result).toBe('hello');
+  });
+});</code></pre>
+  </section>
+</html>

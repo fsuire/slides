@@ -1,0 +1,71 @@
+<html>
+    <section>
+        <h1>Les modules</h1>
+        <p>Notre code est fonctionnel, mais pas très beau. Nous ranger la fonction <code>display</code> dans un fichier <code>src/utils.js</code>.</p>
+        <p>Créer et remplir le fichier <code>src/utils.js</code> :<pre><code data-line-numbers>"use strict";
+    
+    function display(board) {
+      // ...
+    }
+    
+    module.exports = {
+      display: display
+    };
+    </code></pre></p>
+        <p>Importer la fonction <code>display</code> dans le fichier <code>src/index.js</code> :<pre><code>// ...
+    const { display } = require('./utils');
+    // ...
+        </code></pre></p>
+      </section>
+    
+      <section>
+        <h1>Différents type d'imports<span class="small block">pour différents types de modules</span></h1>
+        <pre><code data-line-numbers>"use strict";
+    
+    // on commence toujours par importer les modules de Node.js
+    const { EOL } = require('os');
+    
+    // On importe ensuite les modules externes (provenant de NPM ou de github).
+    // Comme il n'y a aucune différences entre les deux syntaxes,
+    // il est de bon ton de sauter une ligne
+    const figlet = require('figlet');
+    const { Game } = require('morpion');
+    
+    // Viennent enfin les imports des modules locaux.
+    // Bien que la syntaxe soit légèrement différentes
+    // il est quand même de bon ton de sauter une ligne
+    const { display } = require('./utils'); // Vous avez vu la différence syntaxique ?
+                                            // on utilise un chemin relatif !
+    </code></pre>
+      </section>
+    
+      <section>
+        <h1>Sucre syntaxique <span class="small block">pour</span> tableaux indexés</h1>
+        <p>Ces deux manières de faire sont complètement équivalentes :</p>
+        <div class="columns">
+          <div><pre><code>const a = 'a';
+    const b = 'b';
+    
+    const all = {
+      a: a,
+      b: b
+    };
+    
+    module.exports = all;</code></pre>
+          </div>
+          
+          <div><pre><code>const a = 'a';
+    const b = 'b';
+    
+    // pas besoin de la variable intermédiaire `all`
+    module.exports = {
+      a, // pas besoin d'écrire `a: a`, car le nom
+         // de l'index correspond au nom
+         // d'une variable existante dans
+         // le scope courrant
+      b
+    };</code></pre>        
+          </div>
+        </div>
+      </section>
+</html>

@@ -1,0 +1,107 @@
+<html>
+  <section>
+    <h1>Web</h1>
+  </section>
+
+  <section>
+    <h1><span class="small block">Un peu de rangement</span>préparatoire</h1>
+    <p>À partir de maintenant, notre fichier <code>src/index.html</code> servira à lancer un serveur web. Il disposera d'un tout autre contenu.</p>
+    <p>Il serait cependant dommage de perdre le travail que nous avons fait dedans. Nous allons donc créer le dossier <code>src/scripts</code> ainsi que le fichier <code>src/scripts/play.js</code>. Celui-ci sera une copie de notre actuel fichier <code>src/index.html</code></p>
+    <p>Nous allons devoir modifier le fichier <code>package.json</code></p>
+    <pre><code class="json">{
+  "scripts": {
+    "play": "node src/scripts/play.js",
+    "start": "node src/index.js",
+    "test": "./node_modules/.bin/jest",
+    "test:coverage": "./node_modules/.bin/jest --coverage"
+  },
+}</code></pre>
+    <pre><code class="shell">npm run play</code></pre>
+  </section>
+
+  <section>
+    <h1>Une bonnne Bibliothèque web</h1>
+    <p>Node.js possède les modules <a href="https://nodejs.org/docs/latest-v10.x/api/http.html">http</a>, <a href="https://nodejs.org/docs/latest-v10.x/api/http2.html">http2</a> et <a href="https://nodejs.org/docs/latest-v10.x/api/https.html">https</a>, en faisant ainsi une plateforme toute prête pour le web.</p>
+    <p>Il est néanmoins plus facile d'utiliser une bibliothèque pour cela, les plus populaires étant <a href="https://expressjs.com/fr/">express</a> et <a href="https://hapijs.com/">hapi</a></p>
+    <p>Express étant largement le plus utilisé, c'est celui que nous installerons.</p>
+    <pre><code class="shell">npm i express</code></pre>
+  </section>
+
+  <section>
+    <h1><span class="small block">Hello world avec</span>express</h1>
+    <p>Commençons à remplir le fichier <code>src/index.js</code> ainsi :</p>
+    <pre><code data-line-numbers>"use strict";
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res, next) => {
+  res.send('Hello World!');
+});
+
+app.get('/', (req, res, next) => {
+  res.send('Post hello World!');
+});
+
+app.all('/all', (req, res, next) => {
+    res.send('Hello All!');
+});
+
+app.listen(3000, () => {
+  console.log('Example app listening on port 3000!');
+});</code></pre>
+  </section>
+
+  <section>
+    <h1>async/await</h1>
+    <p>Express ne gère pas async/await nativement, il va nous falloir télécharger un package pour cela :</p>
+    <pre><code class="shell">npm i express-async-handler</code></pre>
+    <p>Nous pourrons l'utiliser comme ceci :</p>
+    <pre><code>// ...
+
+const expressAsync = require('express-async-handler');
+
+// ...
+
+app.get('/', expressAsync(async (req, res, next) => {
+  const something = await something();
+  res.send(something);
+}))
+</code></pre>
+  </section>
+
+  <section>
+    <h1>Nodemon</h1>
+    <p class="advice"><span>Afin de ne pas avoir à arrêter et redémarrer notre serveur à chaque changement dans les sources, nous pouvons utiliser <a href="https://nodemon.io/">nodemon</a>, qui fonctionne à la manière d'un <code>jest --watch</code>.</span></p>
+    <pre><code class="shell">npm i -D nodemon</code></pre>
+    <p>Il nous faut ensuite créer un script NPM utilisant nodemon :</p>
+    <pre><code class="json">{
+  "scripts": {
+    "dev": "./node_modules/.bin/nodemon src/index.js"
+  }
+}</code></pre>
+    <pre><code class="shell">npm run dev</code></pre>
+  </section>
+
+  <section>
+    <h1>À propos des intallations globales</h1>
+    <p>Certains packages, comme <b>nodemon</b> vous propose de les installer sur votre système de manière globale (<code>npm i -g</code>).</p>
+    <p>Préférez à cela des installations locales à chaque projet, vous éviterez ainsi des problèmes de collision de version entre vos différents projets.</p>
+  </section>
+
+  <section>
+    <h1>Gestion des erreurs</h1>
+    <pre><code>// ...
+
+app.get('/', (req, res, next) => {
+  const error = new Error('message');
+  next(error); // on va au handler d'erreurs
+});
+
+// après la dernière route, le handler d'erreurs
+app.use(function(err, req, res, next) {
+  console.error(err);
+  res.status(500).send('Error!');
+});</code></pre>
+  </section>
+</html>

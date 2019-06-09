@@ -1,0 +1,41 @@
+<html>
+  <section>
+    <h1>Les scripts NPM</h1>
+  </section>
+
+  <section>
+    <h1>Script de test</h1>
+    <p>dans le fichier <code>package.json</code>, ajouter (ou modifier) la ligne suivante à la section `scripts` :</p>
+    <pre><code class="json">{
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+  },
+}</code></pre>
+  <p>À partir de maintentant, plus besoin de taper la commande <code>./node_modules/.bin/jest</code> pour lancer votre programme. Il suffit juste de faire :</p>
+  <pre><code class="shell">npm run test
+# on peut rajouter des options, mais il faut ajouter deux tirets comme séparateur entre la commande NPM et ses options
+npm run test -- --watch</code></pre>
+  <p>Vous pouvez ajouter autant de scripts que vous voulez, avec les noms que vous voulez. Par exemple, ce script peut être utile dans une CI :</p>
+  <pre><code class="json">{
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "test:coverage": "./node_modules/.bin/jest --coverage",
+  },
+}</code></pre>
+  <pre><code class="shell">npm run test:coverage</code></pre>
+  </section>
+
+  <section>
+    <h1>Script de démarrage</h1>
+    <p>Certain "noms de script" n'ont pas besoin du mot-clef <code>run</code> afin de les exécuter. C'est le cas pour <code>start</code></p>
+    <pre><code class="json">{
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "./node_modules/.bin/jest",
+    "test:coverage": "./node_modules/.bin/jest --coverage",
+  },
+}</code></pre>
+    <pre><code class="shell">npm start</code></pre>
+    <p>Il existe d'autres "noms de scripts" dans ce cas. N'hésitez pas à en consulter <a href="https://docs.npmjs.com/misc/scripts">la liste</a>.</p>
+  </section>
+</html>

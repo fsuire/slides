@@ -1,0 +1,36 @@
+<html>
+    <section>
+        <h1><span class="small block">Hello</span>World!</h1>
+    </section>
+
+    <section>
+        <h1>Créer<span class="small block">un nouveau projet</span></h1>
+<pre><code class="shell"># Créer le dossier qui accueillera le projet
+mkdir formation
+cd formation
+
+# Wizard d'initialisation de projet Node.js
+# Peut importe ce que l'on répond aux questions posées,
+# tout pourra être changé facilement par la suite
+npm init</code></pre>
+        <p>
+            Aprés avoir exécuté ces commandes, deux nouveaux fichiers ont été créés dans le répertoire de votre projet :
+            <ul>
+                <li>Le fichier <code>package.json</code>, qui contient la configuration basique de votre projet ainsi que la liste de ses dépendances</li>
+                <li>Le fichier <code>package-lock.json</code>, qui est le fichier de verrouillage des versions des dépendances généré par NPM</li>
+            </ul>
+        </p>
+    </section>
+
+    <section>
+        <h1>Créer<span class="small block">un premier fichier</span> JavaScript</h1>
+        <p class="advice"><span>Toutes nos sources se trouveront dans le dossier <code>src</code>. Cela permettra de les isoler facilement des fichiers de configurations du projet.</span></p>
+        <p>Par convention, un fichier <code>index.js</code> sert de point d'entrée au répertoire dans lequel il se trouve. Nous allons donc créér le fichier <code>src/index.js</code></p>
+<pre><code class="javascript" data-line-numbers>"use strict";
+
+console.log('Hello world!');
+</code></pre>
+        <p>Et pour faire tourner ce code :</p>
+<pre><code class="shell">node src/index.js</code></pre>
+    </section>
+</html>
