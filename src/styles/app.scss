@@ -1,0 +1,111 @@
+#app {
+  .App-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+
+    p {
+      max-width: var(--standard-width);
+      text-align: justify;
+      margin-bottom: 0.5em;
+      
+      &.advice, &.warning {
+        position: relative;
+        padding: 1em 3em;
+        padding-right: 1em;
+        border: 1px solid var(--secondary-color);
+        border-radius: 3px;
+    
+        &::before {
+          position: absolute;
+          top: 13px;
+          left: 10px;
+          font-size: 2em;
+        }
+      }
+    
+      &.advice::before { content: '😀'; }
+      &.warning::before { content: '😱'; }
+    }
+
+    ul {
+      margin-bottom: 0.5em;
+
+      li {
+        position: relative;
+        margin-bottom: 0.25em;
+        text-align: justify;
+
+        &::before {
+          content: '*';
+          position: relative;
+          top: 0.25em;
+          color: var(--secondary-color);
+          font-weight: bold;
+        }
+      }
+    }
+
+    table {
+      margin-bottom: 0.5em;
+    }
+
+    .flexline {
+      max-width: var(--standard-width);
+      display: flex;
+      flex-direction: row;
+
+      > *:not(:last-child) {
+        margin-right: 0.5em;
+      } 
+    }
+
+    .flexcol {
+      max-width: var(--standard-width);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      > *:not(:last-child) {
+        margin-bottom: 0.5em;
+      } 
+    }
+    
+    .grid2 {
+      max-width: var(--standard-width);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 0.5em;
+
+      > * {
+        justify-self: center;
+        align-self: center;
+      }
+
+      > pre,
+      > pre .hljs {
+        width: 100%;
+      }
+    }
+
+    .fullwidth {
+      width: var(--standard-width);
+    }
+
+    &.smallfont {
+      font-size: 0.9em;
+    }
+    &.smallfont .hljs, .smallfont .hljs {
+      font-size: 0.9em;
+    }
+
+    &.smallerfont {
+      font-size: 0.8em;
+    }
+    &.smallerfont .hljs, .smallerfont .hljs {
+      font-size: 0.8em;
+    }
+  }
+}
