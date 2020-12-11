@@ -1,0 +1,18 @@
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component'
+
+@Options({
+  components: {}
+})
+export default class Eb extends Vue {}
+</script>
+
+<template>
+  <span>
+    <span class="color-emphase">
+      <b>
+        <slot />
+      </b>
+    </span>
+  </span>
+</template>

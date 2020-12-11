@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:300,400,600');
+@import url('https://fonts.googleapis.com/css?family=Catamaran:300,400,600,700');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700');
+@font-face {
+  font-family: 'peaks';
+  src: url('../assets/fonts/peaks.eot?rr3am3');
+  src: url('../assets/fonts/peaks.eot?rr3am3#iefix') format('embedded-opentype'),
+    url('../assets/fonts/peaks.ttf?rr3am3') format('truetype'), url('../assets/fonts/peaks.woff?rr3am3') format('woff'),
+    url('../assets/fonts/peaks.svg?rr3am3#peaks') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import './reset';
+@import './root';
+@import './tags';
+@import './app';
