@@ -4,13 +4,13 @@ import { Options } from 'vue-class-component'
 import Slide from '@/Slide'
 
 import AbstractSlide from '@/components/AbstractSlide.vue'
-// import nextSlide from './EcrireUneApi2.vue'
+import nextSlide from '../ModuleEcmascript.vue'
 
 @Options({})
 @Slide({
   path: '/vif-du-sujet/<title>',
-  title: '<b>Écrire</b> une <e>API</e> #2'
-  // nextSlide
+  title: '<b>Écrire</b> une <e>API</e> #2',
+  nextSlide
 })
 export default class EcrireUneApi2 extends AbstractSlide {}
 </script>

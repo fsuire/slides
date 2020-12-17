@@ -12,15 +12,7 @@ import nextSlide from './EcrireUneApi1.vue'
   title: "<b>Écrire</b> une <e>commande d'administration</e>",
   nextSlide
 })
-export default class EcrireUneCommande extends AbstractSlide {
-  private get code(): string {
-    /* eslint-disable no-useless-escape */
-    return `curl -i -H "api: {\"user\": {\"name\": \"coucou\"}}" curl" http://localhost:3010/tasks
-
-curl -i -H "api: {\"user\": {\"name\": \"coucou\"}}" --data "taskLabel=Depuis curl" http://localhost:3010/task`
-    /* eslint-enable */
-  }
-}
+export default class EcrireUneCommande extends AbstractSlide {}
 </script>
 
 <template>
