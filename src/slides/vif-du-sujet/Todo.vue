@@ -4,11 +4,11 @@ import { Options } from 'vue-class-component'
 import Slide from '@/Slide'
 
 import AbstractSlide from '@/components/AbstractSlide.vue'
-import nextSlide from './OrganisationDesFichiers.vue'
+import nextSlide from './EcrireUneCommande.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd/<title>',
+  path: '/vif-du-sujet/<title>',
   title: '<b>To</b><e>do</e>',
   nextSlide
 })

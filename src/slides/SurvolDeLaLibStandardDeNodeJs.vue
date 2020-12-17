@@ -4,7 +4,7 @@ import { Options } from 'vue-class-component'
 import Slide from '@/Slide'
 
 import AbstractSlide from '@/components/AbstractSlide.vue'
-import nextSlide from './cookie-et-bdd/00.CookieEtBdd.vue'
+import nextSlide from './vif-du-sujet/00.VifDuSujet.vue'
 
 @Options({})
 @Slide({

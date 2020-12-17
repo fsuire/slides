@@ -8,7 +8,7 @@ import nextSlide from './IntegrerRedis.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd/<title>',
+  path: '/vif-du-sujet/<title>',
   title: '<e>Break</e>points',
   nextSlide
 })

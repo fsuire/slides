@@ -8,11 +8,11 @@ import nextSlide from './SystemeDeLogin.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd',
-  title: '<e>Cookie</e> & <b>BdD</b>',
+  path: '/vif-du-sujet',
+  title: 'Le <e>vif</e> du <b>sujet</b>',
   nextSlide
 })
-export default class CookieEtBdd extends AbstractSlide {}
+export default class VifDuSujet extends AbstractSlide {}
 </script>
 
 <template>

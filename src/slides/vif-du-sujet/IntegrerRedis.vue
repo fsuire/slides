@@ -8,7 +8,7 @@ import nextSlide from './InjectionDeDependances.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd/<title>',
+  path: '/vif-du-sujet/<title>',
   title: 'Intégrer <e>Redis</e>',
   nextSlide
 })

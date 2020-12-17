@@ -4,15 +4,15 @@ import { Options } from 'vue-class-component'
 import Slide from '@/Slide'
 
 import AbstractSlide from '@/components/AbstractSlide.vue'
-// import nextSlide from './EcrireUneApi.vue'
+import nextSlide from './SocketIo1.vue'
 
 @Options({})
 @Slide({
-  path: '/api-et-websocket/<title>',
-  title: '<b>Écrire</b> une <e>API</e>'
-  // nextSlide
+  path: '/vif-du-sujet/<title>',
+  title: '<b>Écrire</b> une <e>API</e> #1',
+  nextSlide
 })
-export default class EcrireUneApi extends AbstractSlide {
+export default class EcrireUneApi1 extends AbstractSlide {
   private get code(): string {
     /* eslint-disable no-useless-escape */
     return `curl -i -H "api: {\"user\": {\"name\": \"coucou\"}}" curl" http://localhost:3010/tasks

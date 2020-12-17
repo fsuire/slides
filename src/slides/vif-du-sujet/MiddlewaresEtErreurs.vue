@@ -9,7 +9,7 @@ import nextSlide from './Breakpoints.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd/<title>',
+  path: '/vif-du-sujet/<title>',
   title: '<b>Middlewares</b> & <e>Erreurs</e>',
   nextSlide
 })

@@ -8,7 +8,7 @@ import nextSlide from './MiddlewaresEtErreurs.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd/<title>',
+  path: '/vif-du-sujet/<title>',
   title: 'Un <e>système</e> de <b>login</b> simple',
   nextSlide
 })
@@ -33,6 +33,12 @@ export default class SystemeDeLogin extends AbstractSlide {}
         de login.
       </li>
     </ul>
+
+    <p class="advice">
+      Afin de pouvoir parser les cookie et le body des requêtes POST, nous allons avoir besoin de
+      <a href="https://github.com/expressjs/cookie-parser">cookie-parser</a> et
+      <a href="https://github.com/expressjs/body-parser">body-parser</a>.
+    </p>
   </div>
 </template>
 

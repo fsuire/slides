@@ -8,7 +8,7 @@ import nextSlide from './Todo.vue'
 
 @Options({})
 @Slide({
-  path: '/cookie-et-bdd/<title>',
+  path: '/vif-du-sujet/<title>',
   title: '<e>Injection</e> de <b>dépendances</b>',
   nextSlide
 })
